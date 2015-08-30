@@ -5,12 +5,16 @@
  */
 package flatrubik;
 
+import java.util.Random;
+
 /**
  *
  * @author nam4_000
  */
 public class Game {
 
+    public static final int MAX_SUFFLE = 30;
+    
     private Face mUpFace, mDownFace, mFrontFace, mBackFace, mLeftFace, mRightFace;
 
     public Game() {
@@ -120,7 +124,7 @@ public class Game {
 
         mFrontFace.rotateRight();
     }
-    
+
     public void moveUpperFrontComma() {
         Square[] mTempColumn = new Square[3];
 
@@ -134,7 +138,7 @@ public class Game {
 
         mFrontFace.rotateLeft();
     }
-    
+
     public void moveUpperBack() {
         Square[] mTempColumn = new Square[3];
 
@@ -148,7 +152,7 @@ public class Game {
 
         mBackFace.rotateRight();
     }
-    
+
     public void moveUpperBackComma() {
         Square[] mTempColumn = new Square[3];
 
@@ -162,7 +166,7 @@ public class Game {
 
         mBackFace.rotateLeft();
     }
-    
+
     public void moveMiddleFront() {
         Square[] mTempColumn = new Square[3];
 
@@ -174,7 +178,7 @@ public class Game {
             mRightFace.setSquare(i, 1, mTempColumn[i]);
         }
     }
-    
+
     public void moveMiddleFrontComma() {
         Square[] mTempColumn = new Square[3];
 
@@ -184,6 +188,50 @@ public class Game {
             mRightFace.setSquare(i, 1, mDownFace.getSquare(Face.FACE_SIZE - 1 - i, Face.FACE_SIZE - 1 - 1));
             mDownFace.setSquare(Face.FACE_SIZE - 1 - i, Face.FACE_SIZE - 1 - 1, mLeftFace.getSquare(i, 1));
             mLeftFace.setSquare(i, 1, mTempColumn[i]);
+        }
+    }
+
+    public void suffle() {
+        for (int i = 0; i < MAX_SUFFLE; i++) {
+            Random rand = new Random();
+            int n = rand.nextInt(12);
+
+            switch (n) {
+                case 0:
+                    moveUpperRight();
+                    break;
+                case 1:
+                    moveUpperRightComma();
+                    break;
+                case 2:
+                    moveUpperLeft();
+                    break;
+                case 3:
+                    moveUpperLeftComma();
+                    break;
+                case 4:
+                    moveMiddleRight();
+                    break;
+                case 5:
+                    moveMiddleRightComma();
+                    break;
+                case 6:
+                    moveUpperFront();
+                    break;
+                case 7:
+                    moveUpperFrontComma();
+                    break;
+                case 8:
+                    moveUpperBack();
+                    break;
+                case 9:
+                    moveUpperBackComma();
+                    break;
+                case 10:
+                    moveMiddleFront();
+                default:
+                    moveMiddleFrontComma();
+            }
         }
     }
 }
